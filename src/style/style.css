@@ -1,0 +1,13 @@
+:root {
+}
+.title {
+  color: var(--text-color);
+}
+
+body {
+  background-color: unset;
+}
+
+#app {
+  background-color: var(--bg-color);
+}

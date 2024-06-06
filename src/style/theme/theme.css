@@ -1,0 +1,29 @@
+/* dark主题 */
+:root[theme='dark'] {
+    --bg-color: #0d1117;
+    --text-color: #f0f6fc;
+    --aside-menu-color: #0d1117;
+    --aside-bg-color: #0d1117;
+    --svg-filter: invert(50%);
+}
+
+svg {
+    filter: var(--svg-filter);
+}
+/* light主题 */
+:root[theme='light'] {
+    --bg-color: white;
+    --text-color: #181818;
+    --aside-menu-color:linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.3));
+    --aside-bg-color: linear-gradient(45deg, rgba(255, 0, 255, 0.4), rgba(0, 255, 255, 0.5));
+    --svg-filter: invert(0%);
+}
+.el-menu-vertical-demo {
+    background: var(--aside-menu-color);
+    border-radius: 10px;
+    /*background-color: var(--aside-menu-color);*/
+}
+.aside-color{
+    background : var(--aside-bg-color);
+    border-radius: 10px;
+}
