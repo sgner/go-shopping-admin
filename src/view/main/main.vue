@@ -19,7 +19,7 @@
                 style="width: 70px"
                 :src="main_logo_src"
             />
-            <h2 class="title">我的AI助手</h2>
+            <h2 class="title">管理端</h2>
           </el-menu-item>
           <div class="flex-grow" />
 
@@ -67,13 +67,9 @@
                   @close="handleClose"
                   router
               >
-                <el-menu-item index="/ai/chatgpt">
-                  <img src="@/assets/chatGPT.svg" width="25px">
-                  <span>ChatGPT</span>
+                <el-menu-item index="">
                 </el-menu-item>
-                <el-menu-item index="/ai/stability">
-                  <el-icon><document /></el-icon>
-                  <span>Stability</span>
+                <el-menu-item index="">
                 </el-menu-item>
                 <el-menu-item index="4" disabled>
                   <el-icon><setting /></el-icon>
@@ -127,7 +123,5 @@
   font-size: 14px;
   color: #666;
 }
-.chatgpt-icon{
-  background-image: url("src/assets/");
-}
+
 </style>
