@@ -19,10 +19,9 @@
                 style="width: 70px"
                 :src="main_logo_src"
             />
-            <h2 class="title">管理端</h2>
+            <h2 class="title">管理平台</h2>
           </el-menu-item>
           <div class="flex-grow" />
-
           <el-menu-item index="1">主页</el-menu-item>
           <el-sub-menu index="2">
             <template #title>
@@ -32,10 +31,6 @@
               <el-icon><User /></el-icon>
               我的信息
             </el-menu-item>
-            <el-menu-item index="2-2">
-              <el-icon><Wallet /></el-icon>
-              我的余额
-            </el-menu-item>
             <div>
               <el-row align="middle">
                 <el-col :span="8" :offset="2" style="font-size: 15px">黑暗模式</el-col>
@@ -44,7 +39,7 @@
                                                :inactive-icon="Sunny"
                                                active-color="var(--el-fill-color-dark)"
                                                inactive-color="var(--el-color-primary)"
-                                               @change="toggleDark;chageTheme(dark);" @click="openFullScreen" size="large" v-loading.fullscreen.lock="fullscreenLoading" /></el-col>
+                                               @change="toggleDark ; chageTheme(dark);" @click="openFullScreen" size="large" v-loading.fullscreen.lock="fullscreenLoading" /></el-col>
               </el-row>
             </div>
             <el-divider class="divider"/>
@@ -61,19 +56,20 @@
           <el-row class="tac">
             <el-col :span="24">
               <el-menu
-                  default-active="/ai/chatgpt"
+                  default-active="1"
                   class="el-menu-vertical-demo"
                   @open="handleOpen"
                   @close="handleClose"
                   router
               >
-                <el-menu-item index="">
+                <el-menu-item index="1">
+                   书籍管理
                 </el-menu-item>
-                <el-menu-item index="">
+                <el-menu-item index="2">
+                   分类管理
                 </el-menu-item>
                 <el-menu-item index="4" disabled>
-                  <el-icon><setting /></el-icon>
-                  <span>更多</span>
+                   订单管理
                 </el-menu-item>
               </el-menu>
             </el-col>
@@ -123,5 +119,7 @@
   font-size: 14px;
   color: #666;
 }
-
+.title-icon{
+  background-image: url("src/assets/");
+}
 </style>
