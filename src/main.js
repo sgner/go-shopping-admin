@@ -8,7 +8,6 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import "element-plus/theme-chalk/dark/css-vars.css"
 import "@/style/theme/theme.css"
 import "@/style/style.css"
-import "@/assets/myIcons/iconfont/iconfont.css"
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 const app = createApp(App)
