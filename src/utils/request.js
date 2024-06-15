@@ -24,7 +24,7 @@ instance.interceptors.response.use(
     err=>{
         if(err.response.status === 401){
             error('请先登入')
-            router.push('/login')
+            router.push('/')
         }else{
             error("服务异常")
         }

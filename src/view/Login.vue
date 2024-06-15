@@ -1,5 +1,6 @@
 <script setup>
 import {ElMessage} from "element-plus";
+import {adminLoginService} from "@/api/admin.js"
 
 const isLogin = ref(false)
 const user = ref({
@@ -8,7 +9,8 @@ const user = ref({
   avatar:'',
 })
 import {ref} from "vue";
-const default_avatar = ref('/src/assets/avatar.png')
+import {getAssetsFile} from "@/utils/assets.js";
+const default_avatar = ref(getAssetsFile('avatar.png'))
 
 const loginData = ref({
   username:'',
@@ -20,6 +22,7 @@ const img = ref('');
 import {useTemporaryIdStore} from "@/stores/TemporaryId.js";
 import {verifyService} from "@/api/Verify.js";
 import {useTokenStore} from "@/stores/Token.js";
+import router from "@/router/index.js";
 const temId = useTemporaryIdStore()
 const code = ref('')
 
@@ -75,19 +78,20 @@ const success = (msg)=>{
 const userLogin = async ()=>{
 
   loginData.value.temporaryId = temId.temporaryId
-  const result = await loginService(loginData.value)
+  const result = await adminLoginService(loginData.value)
   success("登录成功")
   tokenStore.setToken(result.data)
   isLogin.value = true
-  loginVisible.value = false
+  router.push("/home")
   clearLogin()
 }
+const backgroundImage = ref(getAssetsFile('tu2.jpeg'));
 imageVerify()
 </script>
 
 <template>
   <el-row class="login-page">
-    <el-col :span="12" class="bg"></el-col>
+    <el-col :span="12" class="bg" :style="{ backgroundImage: `url(${backgroundImage})` }" ></el-col>
     <el-col :span="6" :offset="3" class="form">
       <el-form ref="form" size="large" autocomplete="off" :model="loginData" :rules="loginRule">
         <el-form-item>
@@ -112,7 +116,7 @@ imageVerify()
           </div>
         </el-form-item>
         <el-form-item>
-          <el-button class="button" type = "primary" auto-insert-space @click="login()" :plain="true">登录</el-button>
+          <el-button class="button" type = "primary" auto-insert-space @click="userLogin()" :plain="true">登录</el-button>
           <div class="flex" style="margin-left: 40px">
             <el-link type="primary" :underline="false">忘记密码?</el-link>
           </div>
@@ -122,11 +126,8 @@ imageVerify()
   </el-row>
 </template>
 
-<style scoped>
-.verifyImg{
-  width: 140px;
-  height: 50px;
-}
+<style lang="scss" scoped>
+/* 样式 */
 .login-page {
   height: 100vh;
   background-color: #fff;
@@ -134,11 +135,17 @@ imageVerify()
     display: flex; /* 使用flex布局 */
     align-items: center; /* 垂直居中对齐 */
   }
-
+  .verifyImg{
+    width: 120px;
+    height: 40px;
+  }
   .el-input {
     margin-right: 10px; /* 设置组件间的间距 */
   }
-
+  .bg {
+    background-size: cover;
+    border-radius: 0 20px 20px 0;
+  }
 
   .form {
     display: flex;
@@ -161,9 +168,4 @@ imageVerify()
     }
   }
 }
-.bg {
-     background:
-         url('src/assets/tu2.jpeg') no-repeat center / cover;
-     border-radius: 0 20px 20px 0;
-   }
 </style>

@@ -1,5 +1,39 @@
 <script setup>
+import {computed, ref} from "vue";
+ import {
+   DataLine,
+   Document,
+   Menu as IconMenu,
+     BellFilled,
+     List,
+     User,
+     MoonNight,
+     Sunny,
+   Setting,
+     Fold,
+ } from '@element-plus/icons-vue'
+ import router from "@/router/index.js";
+ const isCollapse = ref(true);
+ const chageTheme = (val) => {
+   const delay = 200; // 延迟时间，单位为毫秒
 
+   setTimeout(() => {
+     if (!val) {
+       document.documentElement.setAttribute('theme', 'light');
+       document.querySelector("html")?.classList.remove("dark");
+       document.querySelector("html")?.classList.add("light");
+     } else {
+       document.documentElement.setAttribute('theme', 'dark');
+       document.querySelector("html")?.classList.remove("light");
+       document.querySelector("html")?.classList.add("dark");
+     }
+   }, delay);
+ };
+ chageTheme(false)
+ const toggleDark =()=> themeStore.setTheme(!dark.value)
+ const dark = ref()
+ const asideWidth = computed(() => (isCollapse.value ? "64px" : "250px"));
+ router.push("/category")
 </script>
 
 <template>
@@ -33,7 +67,7 @@
             </el-menu-item>
             <div>
               <el-row align="middle">
-                <el-col :span="8" :offset="2" style="font-size: 15px">黑暗模式</el-col>
+                <el-col :span="8" :offset="2" style="font-size: 14px">黑暗模式</el-col>
                 <el-col :span="6" > <el-switch v-model="dark" inline-prompt
                                                :active-icon="MoonNight"
                                                :inactive-icon="Sunny"
@@ -52,33 +86,60 @@
       </el-header>
       <el-container>
 
-        <el-aside class="aside-color" width="280px">
+        <el-aside class="aside-color" :style="{ width: asideWidth, transition: 'width 0.3s' }">
           <el-row class="tac">
-            <el-col :span="24">
+            <el-col :span="20">
               <el-menu
-                  default-active="1"
+                  default-active="/category"
                   class="el-menu-vertical-demo"
+                  :collapse="isCollapse"
                   @open="handleOpen"
                   @close="handleClose"
+                  collapse-transition
                   router
               >
-                <el-menu-item index="1">
-                   书籍管理
+                <el-sub-menu index="1" disabled>
+                  <template #title>
+                    <el-icon><DataLine /></el-icon>
+                    <span>销售分析</span>
+                  </template>
+                  <el-sub-menu index="1-4">
+                    <template #title><span>item four</span></template>
+                    <el-menu-item index="1-4-1">item one</el-menu-item>
+                  </el-sub-menu>
+                </el-sub-menu>
+                <el-menu-item index="/category">
+                  <el-icon><icon-menu /></el-icon>
+                  <template #title>分类管理</template>
                 </el-menu-item>
-                <el-menu-item index="2">
-                   分类管理
+                <el-menu-item index="/bookManage">
+                  <el-icon><document /></el-icon>
+                  <template #title>图书管理</template>
                 </el-menu-item>
-                <el-menu-item index="4" disabled>
-                   订单管理
+                <el-menu-item index="/event">
+                  <el-icon><BellFilled /></el-icon>
+                  <template #title>活动管理</template>
+                </el-menu-item>
+                <el-menu-item index="5" disabled>
+                  <el-icon><List /></el-icon>
+                    <template #title>
+                         订单管理
+                    </template>
+                </el-menu-item>
+                <el-menu-item v-if="isCollapse">
+                  <el-button style="width: 30px;margin-left: -5px" type="info" plain @click="isCollapse = !isCollapse"><el-icon><Fold /></el-icon></el-button>
                 </el-menu-item>
               </el-menu>
+            </el-col>
+            <el-col :span="4">
+               <el-button v-if="!isCollapse" type="info" plain @click="isCollapse = !isCollapse"><el-icon><Fold /></el-icon></el-button>
             </el-col>
           </el-row>
         </el-aside>
         <el-container>
 
           <el-main>
-            <div style="width: 100% ; height: 100% ">
+            <div style="width: 100% ; height: 100%">
               <router-view></router-view>
             </div>
           </el-main>

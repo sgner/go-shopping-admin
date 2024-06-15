@@ -12,7 +12,7 @@ export default defineConfig({
   server:{
     proxy:{ // 获取路径中包含/api的请求
       '/api':{
-        target:'http://localhost:8080',
+        target:'http://localhost:8081',
         changeOrigin:true,
         rewrite:(path)=>path.replace(/^\/api/,'')
       }
